@@ -14,12 +14,14 @@ namespace Sistem_Vehiculos_API.Data.Entities
         }
 
         public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<Procedure> Procedures { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<VehicleType>().HasIndex(x => x.Descripcion).IsUnique();
+            modelBuilder.Entity<VehicleType>().HasIndex(x => x.Description).IsUnique();
+            modelBuilder.Entity<Procedure>().HasIndex(x => x.Description).IsUnique();
 
         }
 
