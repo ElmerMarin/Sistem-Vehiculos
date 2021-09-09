@@ -1,27 +1,24 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Sistem_Vehiculos_API.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Sistem_Vehiculos_API.Data.Entities;
 
 namespace Sistem_Vehiculos_API.Controllers
 {
-    public class VehicleTypesController : Controller
+    public class BrandsController : Controller
     {
         private readonly DataContext _context;
-
-        public VehicleTypesController(DataContext context)
+        public BrandsController(DataContext context)
         {
             _context = context;
-        }
 
-        // GET: VehicleTypes
+        }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.VehicleTypes.ToListAsync());
+            return View(await _context.Brands.ToListAsync());
         }
 
         // GET: VehicleTypes/Details/5
@@ -53,23 +50,23 @@ namespace Sistem_Vehiculos_API.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VehicleType vehicleType)
+        public async Task<IActionResult> Create(Brand brand)
         {
             if (ModelState.IsValid)
             {
-                try 
-                { 
-                     _context.Add(vehicleType);
-                     await _context.SaveChangesAsync();
-                     return RedirectToAction(nameof(Index)); 
+                try
+                {
+                    _context.Add(brand);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
                     if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya exite este tipo de vehiculo");
+                        ModelState.AddModelError(string.Empty, "Ya exite este tipo de marca");
                     }
-                    else 
+                    else
                     {
                         ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
                     }
@@ -79,11 +76,11 @@ namespace Sistem_Vehiculos_API.Controllers
                 catch (Exception exception)
                 {
 
-                    ModelState.AddModelError(string.Empty,exception.Message);
+                    ModelState.AddModelError(string.Empty, exception.Message);
 
                 }
             }
-            return View(vehicleType);
+            return View(brand);
         }
 
         // GET: VehicleTypes/Edit/5
@@ -94,12 +91,12 @@ namespace Sistem_Vehiculos_API.Controllers
                 return NotFound();
             }
 
-            var vehicleType = await _context.VehicleTypes.FindAsync(id);
-            if (vehicleType == null)
+            var brand = await _context.Brands.FindAsync(id);
+            if (brand == null)
             {
                 return NotFound();
             }
-            return View(vehicleType);
+            return View(brand);
         }
 
         // POST: VehicleTypes/Edit/5
@@ -107,9 +104,9 @@ namespace Sistem_Vehiculos_API.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,VehicleType vehicleType)
+        public async Task<IActionResult> Edit(int id, Brand brand)
         {
-            if (id != vehicleType.Id)
+            if (id != brand.Id)
             {
                 return NotFound();
             }
@@ -118,7 +115,7 @@ namespace Sistem_Vehiculos_API.Controllers
             {
                 try
                 {
-                    _context.Update(vehicleType);
+                    _context.Update(brand);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -126,7 +123,7 @@ namespace Sistem_Vehiculos_API.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya exite este tipo de vehiculo");
+                        ModelState.AddModelError(string.Empty, "Ya exite este tipo de marca");
                     }
                     else
                     {
@@ -144,7 +141,7 @@ namespace Sistem_Vehiculos_API.Controllers
 
 
             }
-            return View(vehicleType);
+            return View(brand);
         }
 
         // GET: VehicleTypes/Delete/5
@@ -155,14 +152,14 @@ namespace Sistem_Vehiculos_API.Controllers
                 return NotFound();
             }
 
-            var vehicleType = await _context.VehicleTypes
+            var brand = await _context.Brands
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicleType == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            _context.VehicleTypes.Remove(vehicleType);
+            _context.Brands.Remove(brand);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -171,3 +168,4 @@ namespace Sistem_Vehiculos_API.Controllers
 
     }
 }
+
