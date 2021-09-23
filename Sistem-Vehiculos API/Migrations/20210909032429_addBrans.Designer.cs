@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Sistem_Vehiculos_API.Data.Entities;
+using Sistem_Vehiculos_API.Data;
+
 
 namespace Sistem_Vehiculos_API.Migrations
 {

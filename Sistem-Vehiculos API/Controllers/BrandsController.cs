@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Sistem_Vehiculos_API.Data;
 using Sistem_Vehiculos_API.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sistem_Vehiculos_API.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class BrandsController : Controller
     {
         private readonly DataContext _context;

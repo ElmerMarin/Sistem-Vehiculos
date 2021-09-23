@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sistem_Vehiculos_API.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Sistem_Vehiculos_API.Data.Entities
+namespace Sistem_Vehiculos_API.Data
 {
-    public class DataContext:DbContext
+    public class DataContext:IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options):base(options)
         {

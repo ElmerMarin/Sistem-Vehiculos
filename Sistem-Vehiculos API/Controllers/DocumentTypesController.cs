@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Sistem_Vehiculos_API.Data;
 using Sistem_Vehiculos_API.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace Sistem_Vehiculos_API.Controllers
 {
-    public class DocumentController : Controller
+    [Authorize(Roles = "Admin")]
+    public class DocumentTypesController : Controller
     {
         private readonly DataContext _context;
-        public DocumentController(DataContext context)
+        public DocumentTypesController(DataContext context)
         {
             _context = context;
 
