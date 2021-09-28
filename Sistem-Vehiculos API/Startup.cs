@@ -26,8 +26,6 @@ namespace Sistem_Vehiculos_API
             services.AddControllersWithViews();
             services.AddIdentity<User, IdentityRole>(x =>
             {
-                x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-                x.SignIn.RequireConfirmedEmail = true;
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
@@ -62,10 +60,8 @@ namespace Sistem_Vehiculos_API
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
             app.UseAuthentication();
-
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

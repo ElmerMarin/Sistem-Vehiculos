@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistem_Vehiculos_API.Data;
 
 namespace Sistem_Vehiculos_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210925023536_UserVehicle")]
+    partial class UserVehicle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,41 +166,7 @@ namespace Sistem_Vehiculos_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Description")
-                        .IsUnique();
-
                     b.ToTable("Brands");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Detail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("HistoryId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("LaborPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProcedureId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("SparePartsPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HistoryId");
-
-                    b.HasIndex("ProcedureId");
-
-                    b.ToTable("Details");
                 });
 
             modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.DocumentType", b =>
@@ -219,32 +187,6 @@ namespace Sistem_Vehiculos_API.Migrations
                         .IsUnique();
 
                     b.ToTable("DocumentTypes");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.History", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Milage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Histories");
                 });
 
             modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Procedure", b =>
@@ -365,78 +307,6 @@ namespace Sistem_Vehiculos_API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Linea")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Model")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Plaque")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("Plaque")
-                        .IsUnique();
-
-                    b.HasIndex("VehicleTypeId");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Vehicles");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.VehiclePhoto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("VehiclePhotos");
-                });
-
             modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.VehicleType", b =>
                 {
                     b.Property<int>("Id")
@@ -508,36 +378,6 @@ namespace Sistem_Vehiculos_API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Detail", b =>
-                {
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.History", "History")
-                        .WithMany("Details")
-                        .HasForeignKey("HistoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.Procedure", "Procedure")
-                        .WithMany("Details")
-                        .HasForeignKey("ProcedureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("History");
-
-                    b.Navigation("Procedure");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.History", b =>
-                {
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.Vehicle", "Vehicle")
-                        .WithMany("Histories")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.User", b =>
                 {
                     b.HasOne("Sistem_Vehiculos_API.Data.Entities.DocumentType", "documentType")
@@ -549,79 +389,9 @@ namespace Sistem_Vehiculos_API.Migrations
                     b.Navigation("documentType");
                 });
 
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Vehicle", b =>
-                {
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.Brand", "Brand")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.VehicleType", "VehicleType")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("VehicleTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.User", "user")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("user");
-
-                    b.Navigation("VehicleType");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.VehiclePhoto", b =>
-                {
-                    b.HasOne("Sistem_Vehiculos_API.Data.Entities.Vehicle", "Vehicle")
-                        .WithMany("VehiclePhotos")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Brand", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
             modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.DocumentType", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.History", b =>
-                {
-                    b.Navigation("Details");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Procedure", b =>
-                {
-                    b.Navigation("Details");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.User", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.Vehicle", b =>
-                {
-                    b.Navigation("Histories");
-
-                    b.Navigation("VehiclePhotos");
-                });
-
-            modelBuilder.Entity("Sistem_Vehiculos_API.Data.Entities.VehicleType", b =>
-                {
-                    b.Navigation("Vehicles");
                 });
 #pragma warning restore 612, 618
         }

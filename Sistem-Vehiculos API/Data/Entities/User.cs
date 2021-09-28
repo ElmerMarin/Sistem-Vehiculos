@@ -46,5 +46,9 @@ namespace Sistem_Vehiculos_API.Data.Entities
         [Display(Name = "Tipo de Usuario")]
         public UserType userType { get; set; }
 
+        public ICollection<Vehicle> Vehicles { get; set; }
+
+ 
+
     }
 }

@@ -15,5 +15,7 @@ namespace Sistem_Vehiculos_API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Description { get; set; }
 
+        public ICollection<Vehicle> Vehicles { get; set; }
+
     }
 }

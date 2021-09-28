@@ -100,9 +100,9 @@ namespace Sistem_Vehiculos_API.Helpers
             throw new NotImplementedException();
         }
 
-        public Task LogoutAsync()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
         }
 
         public Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
